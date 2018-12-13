@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.ac.hansung.dao.GradeDAO;
+import kr.ac.hansung.model.Sems;
 import kr.ac.hansung.model.Subject;
 
 @Service
@@ -14,8 +15,8 @@ public class GradeService {
 	@Autowired
 	private GradeDAO gradeDAO;
 	
-	public List<Subject> getSublist(){
-		return gradeDAO.getSubjectList();
+	public List<Subject> getSublist(int year, int semester){
+		return gradeDAO.getSubjectList(year,semester);
 	}
 	
 	public void register(String subcode) {
@@ -32,6 +33,10 @@ public class GradeService {
 	
 	public void drop(String subcode) {
 		gradeDAO.dropSubject(subcode);
+	}
+	
+	public List<Sems> getSems(){
+		return gradeDAO.getSems();
 	}
 
 }

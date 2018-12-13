@@ -13,16 +13,19 @@
 		<tr>
 			<th>년도</th>
 			<th>학기</th>
-			<th>이수 학점</th>
-			<th>상세보기</th>
+			<th>교과코드</th>
+			<th>교과명</th>
+			<th>구분</th>
+			<th>학점</th>
 		</tr>
-		<c:forEach var="sems" items="${sems}">
+		<c:forEach var="sublist" items="${sublist}">
 			<tr>
-				<td><c:out value="${sems.syear}"></c:out></td>
-				<td><c:out value="${sems.ssemester}"></c:out></td>
-				<td><c:out value="${sems.scredit}"></c:out></td>
-				<td><a
-					href="${pageContext.request.contextPath}/showSubject?year=${sems.syear}&semester=${sems.ssemester}">상세보기</a></td>
+				<td><c:out value="${sublist.year}"></c:out></td>
+				<td><c:out value="${sublist.semester}"></c:out></td>
+				<td><c:out value="${sublist.subcode}"></c:out></td>
+				<td><c:out value="${sublist.subname}"></c:out></td>
+				<td><c:out value="${sublist.division}"></c:out></td>
+				<td><c:out value="${sublist.credit}"></c:out></td>
 			</tr>
 		</c:forEach>
 	</table>

@@ -19,6 +19,6 @@
 		<security:intercept-url access="permitAll" pattern="/login" />
 		<security:intercept-url access="permitAll" pattern="/logout" />
 		<security:logout />
-		<security:form-login />
+		<security:form-login login-page="/login" />
 	</security:http>
 </beans>

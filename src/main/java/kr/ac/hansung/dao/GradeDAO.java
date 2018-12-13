@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import kr.ac.hansung.model.Sems;
 import kr.ac.hansung.model.Subject;
 
 @Repository
@@ -23,8 +24,27 @@ public class GradeDAO {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public List<Subject> getSubjectList() {
-		String sqlStatement = "select * from 1494020_sublist where year=?, semester=?";
+	public List<Sems> getSems() {
+		String sqlStatement = "select * from 1494020_semester";
+
+		return jdbcTemplate.query(sqlStatement, new RowMapper<Sems>() {
+
+			public Sems mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Sems sems = new Sems();
+
+				sems.setSyear(rs.getInt("year"));
+				sems.setSsemester(rs.getInt("semester"));
+				sems.setScredit(rs.getInt("credit"));
+
+				return sems;
+			}
+
+		});
+
+	}
+
+	public List<Subject> getSubjectList(int year, int semester) {
+		String sqlStatement = "select * from 1494020_sublist where year = " + year + " and semester = " + semester;
 
 		return jdbcTemplate.query(sqlStatement, new RowMapper<Subject>() {
 
