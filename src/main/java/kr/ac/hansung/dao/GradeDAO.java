@@ -46,22 +46,7 @@ public class GradeDAO {
 	public List<Subject> getSubjectList(int year, int semester) {
 		String sqlStatement = "select * from 1494020_sublist where year = " + year + " and semester = " + semester;
 
-		return jdbcTemplate.query(sqlStatement, new RowMapper<Subject>() {
-
-			public Subject mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Subject subject = new Subject();
-
-				subject.setYear(rs.getInt("year"));
-				subject.setSemester(rs.getInt("semester"));
-				subject.setSubcode(rs.getString("subcode"));
-				subject.setSubname(rs.getString("subname"));
-				subject.setDivision(rs.getString("division"));
-				subject.setCredit(rs.getInt("credit"));
-
-				return subject;
-			}
-
-		});
+		return getList(sqlStatement);
 	}
 
 	public boolean registe(String subcode) {
@@ -98,45 +83,36 @@ public class GradeDAO {
 	public List<Subject> getRegisteSubject() {
 		String sqlStatement = "select * from registersublist";
 
-		return jdbcTemplate.query(sqlStatement, new RowMapper<Subject>() {
-			public Subject mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Subject subject = new Subject();
-
-				subject.setYear(rs.getInt("year"));
-				subject.setSemester(rs.getInt("semester"));
-				subject.setSubcode(rs.getString("subcode"));
-				subject.setSubname(rs.getString("subname"));
-				subject.setDivision(rs.getString("division"));
-				subject.setCredit(rs.getInt("credit"));
-
-				return subject;
-			}
-		});
+		return getList(sqlStatement);
 	}
 
 	public List<Subject> getRegistedSubject() {
 		String sqlStatement = "select * from 1494020_regisublist";
 
-		return jdbcTemplate.query(sqlStatement, new RowMapper<Subject>() {
-			public Subject mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Subject subject = new Subject();
-
-				subject.setYear(rs.getInt("year"));
-				subject.setSemester(rs.getInt("semester"));
-				subject.setSubcode(rs.getString("subcode"));
-				subject.setSubname(rs.getString("subname"));
-				subject.setDivision(rs.getString("division"));
-				subject.setCredit(rs.getInt("credit"));
-
-				return subject;
-			}
-		});
+		return getList(sqlStatement);
 	}
 
 	public boolean dropSubject(String subcode) {
 		String sqlStatement = "delete from 1494020_regisublist where subcode = ?";
 
 		return jdbcTemplate.update(sqlStatement, new Object[] { subcode }) == 1;
+	}
+	
+	private List<Subject> getList(String sqlStatement){
+		return jdbcTemplate.query(sqlStatement, new RowMapper<Subject>() {
+			public Subject mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Subject subject = new Subject();
+
+				subject.setYear(rs.getInt("year"));
+				subject.setSemester(rs.getInt("semester"));
+				subject.setSubcode(rs.getString("subcode"));
+				subject.setSubname(rs.getString("subname"));
+				subject.setDivision(rs.getString("division"));
+				subject.setCredit(rs.getInt("credit"));
+
+				return subject;
+			}
+		});
 	}
 
 }
